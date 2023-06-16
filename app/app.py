@@ -14,11 +14,7 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from utils.model import ResNet9
-# ==============================================================================================
 
-# -------------------------LOADING THE TRAINED MODELS -----------------------------------------------
-
-# Loading plant disease classification model
 
 disease_classes = ['Apple___Apple_scab',
                    'Apple___Black_rot',
@@ -73,10 +69,6 @@ crop_recommendation_model = pickle.load(
     open(crop_recommendation_model_path, 'rb'))
 
 
-# =========================================================================================
-
-# Custom functions for calculations
-
 
 def weather_fetch(city_name):
     """
@@ -123,8 +115,6 @@ def predict_image(img, model=disease_model):
     # Retrieve the class label
     return prediction
 
-# ===============================================================================================
-# ------------------------------------ FLASK APP -------------------------------------------------
 
 
 app = Flask(__name__)
@@ -159,11 +149,6 @@ def fertilizer_recommendation():
 
 
 
-# ===============================================================================================
-
-# RENDER PREDICTION PAGES
-
-# render crop recommendation result page
 
 
 @ app.route('/crop-predict', methods=['POST'])
@@ -192,7 +177,7 @@ def crop_prediction():
 
             return render_template('try_again.html', title=title)
 
-# render fertilizer recommendation result page
+
 
 
 @ app.route('/fertilizer-predict', methods=['POST'])
@@ -236,7 +221,7 @@ def fert_recommend():
 
     return render_template('fertilizer-result.html', recommendation=response, title=title)
 
-# render disease prediction result page
+
 
 
 @app.route('/disease-predict', methods=['GET', 'POST'])
@@ -261,6 +246,6 @@ def disease_prediction():
     return render_template('disease.html', title=title)
 
 
-# ===============================================================================================
+
 if __name__ == '__main__':
     app.run(debug=False)
